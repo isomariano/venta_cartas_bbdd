@@ -1,0 +1,99 @@
+[33mtag V1.0.0[m
+Tagger: mariano.iso <isoldimariano@gmail.com>
+Date:   Fri Jan 17 18:52:36 2020 -0300
+
+version inicial
+
+[33mcommit 40913b9f5f547710f1c2577e290e5d19c5b1db4c[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;33mtag: V1.0.0[m[33m)[m
+Author: mariano.iso <isoldimariano@gmail.com>
+Date:   Thu Jan 16 17:35:43 2020 -0300
+
+    commit inicial
+
+[1mdiff --git a/modulo_genera_registros.py b/modulo_genera_registros.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ad864e0[m
+[1m--- /dev/null[m
+[1m+++ b/modulo_genera_registros.py[m
+[36m@@ -0,0 +1,29 @@[m
+[32m+[m[32m#modulo para generar los registros a travez de la entrada del usuario[m
+[32m+[m
+[32m+[m[32macumulados = [][m
+[32m+[m
+[32m+[m[32mdef suma_registro(): #calcula los montos  del registro y lo añade a la lista[m
+[32m+[m
+[32m+[m[32m    print ("ingrese los datos de la siguiente carta")[m
+[32m+[m[32m    print ()[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        nombre, dolares, estado = input("nombre: "), float(input("valor en dolares: ")), input("estado: ")[m
+[32m+[m[32m        registro = [nombre.lower(), dolares, dolares*10, dolares*50, dolares*60, estado.lower()][m[41m [m
+[32m+[m[32m        acumulados.append(registro)[m
+[32m+[m[32m    except:[m
+[32m+[m[32m        print ("valores ingresados no admisibles")[m
+[32m+[m[32m    print ()[m
+[32m+[m[32m    print ("hasta ahora han sido ingresadas " + str(len(acumulados)) + " cartas" )[m
+[32m+[m[32m    respuesta = input("desea ingresar otra carta? ")[m
+[32m+[m[32m    print ()[m
+[32m+[m
+[32m+[m[32m    if respuesta == "si":[m
+[32m+[m[32m        suma_registro()[m
+[32m+[m
+[32m+[m[32mdef envia_registros(): #funcion que sera llamada por otros modulos[m
+[32m+[m[32m    suma_registro()[m
+[32m+[m[32m    registros = acumulados[m
+[32m+[m[32m    return registros[m
+[32m+[m
+[32m+[m[32mif __name__ == "__main__":[m
+[32m+[m[32m    print(envia_registros())[m
+\ No newline at end of file[m
+[1mdiff --git a/modulo_ingresa_registros_bbdd.py b/modulo_ingresa_registros_bbdd.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ef8c596[m
+[1m--- /dev/null[m
+[1m+++ b/modulo_ingresa_registros_bbdd.py[m
+[36m@@ -0,0 +1,40 @@[m
+[32m+[m[32m#modulo para ingresar registros en la base de datos primerabbdd[m
+[32m+[m[32mimport sqlite3[m
+[32m+[m[32mfrom modulo_genera_registros import *[m
+[32m+[m
+[32m+[m[32mdef conexion_bbdd(opcion_elegida): #conexion a bbdd para realizar consultas o ingresar registros[m
+[32m+[m
+[32m+[m	[32mmiconexion = sqlite3.connect("primerabbdd")[m
+[32m+[m	[32mmicursor = miconexion.cursor()[m
+[32m+[m
+[32m+[m	[32mif opcion_elegida == "consulta":[m
+[32m+[m		[32mmicursor.execute("SELECT * FROM CARTAS")[m
+[32m+[m		[32mregistros = micursor.fetchall()[m
+[32m+[m		[32mfor registro in registros:[m
+[32m+[m			[32mprint("carta: " + str(registro))[m
+[32m+[m
+[32m+[m	[32melif opcion_elegida == "ingreso":[m
+[32m+[m		[32mregistros_recibidos = envia_registros()  #se llama a la funcion del modulo_genera_registros[m
+[32m+[m		[32mmicursor.executemany("INSERT INTO CARTAS VALUES (?, ?, ?, ?, ?, ?)", registros_recibidos)[m
+[32m+[m
+[32m+[m	[32mprint ()[m
+[32m+[m	[32mmiconexion.commit()[m
+[32m+[m	[32mmiconexion.close()[m
+[32m+[m
+[32m+[m[32mdef main():  #llama a la funcion de conexion con la bbdd y recursividad[m
+[32m+[m[41m	[m
+[32m+[m	[32maccion = input ("consulta o ingreso de datos? ")[m
+[32m+[m	[32mprint ()[m
+[32m+[m	[32mconexion_bbdd (accion)[m
+[32m+[m
+[32m+[m	[32mrecursividad = input ("desea realizar otra accion? ")[m
+[32m+[m	[32mprint ()[m
+[32m+[m	[32mif recursividad == "si":[m
+[32m+[m		[32mmain()[m
+[32m+[m
+[32m+[m[32mif __name__ == "__main__":[m
+[32m+[m	[32mcontraseña = input ("contraseña: ")[m
+[32m+[m	[32mif contraseña == "alojomora":[m
+[32m+[m		[32mprint ("contraseña correcta")[m
+[32m+[m		[32mprint ()[m
+[32m+[m		[32mmain()[m
+\ No newline at end of file[m
+[1mdiff --git a/primerabbdd b/primerabbdd[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5be5f99[m
+Binary files /dev/null and b/primerabbdd differ
