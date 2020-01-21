@@ -19,15 +19,19 @@ class DataBase:
 	def close(self):
 		self.connection.close()
 
-	def select_cartas (self, accion): #consulta de los registros total o filtrada por estado
+	def consulta_cartas (self, accion): #consulta de los registros total o filtrada por estado
 
 		if accion == "todas":
 			sql1 = "SELECT * FROM tabla_cartas ORDER BY TIPO"
 			sql2 = "SELECT SUM(PRECIO_DOLARES), SUM(COMISION), SUM(PARTE_TIENDA), SUM(TOTAL) FROM tabla_cartas"
-		else:
+		elif accion == "vendido" or accion == "disponible":
 			sql1 = "SELECT * FROM tabla_cartas WHERE ESTADO = '{}' ORDER BY TIPO".format(accion)
 			sql2 = "SELECT SUM(PRECIO_DOLARES), SUM(COMISION), SUM(PARTE_TIENDA), SUM(TOTAL) FROM tabla_cartas WHERE ESTADO = '{}'".format(accion)
-
+		else:
+			nombre = input("nombre de la carta: ")
+			sql1 = "SELECT * FROM tabla_cartas WHERE NOMBRE = '{}' ORDER BY TIPO".format(nombre)
+			sql2 = "SELECT SUM(PRECIO_DOLARES), SUM(COMISION), SUM(PARTE_TIENDA), SUM(TOTAL) FROM tabla_cartas WHERE NOMBRE = '{}'".format(nombre)
+		
 		try:
 			self.cursor.execute(sql1)
 			cartas = self.cursor.fetchall()
@@ -39,18 +43,6 @@ class DataBase:
 			self.cursor.execute(sql2)
 			totales = self.cursor.fetchone()
 			print ("TOTAL U$S: ", totales [0], "TOTAL $: ", totales[3], "TOTAL COMISION $: ", totales [1])
-		except:
-			raise
-
-	def select_carta(self): #consulta especifica
-		nombre = input("nombre de la carta: ")
-		sql = "SELECT * FROM tabla_cartas WHERE NOMBRE = '{}' ORDER BY TIPO".format(nombre)
-
-		try:
-			self.cursor.execute(sql)
-			carta = self.cursor.fetchone()
-			print (" ESTADO      DOLARES     PESOS        CARTA")
-			print (carta [5], "\t", "U$S", carta [1], "\t", "$", carta[4], "\t", carta [0])
 		except:
 			print ("carta no encontrada")
 		
@@ -65,7 +57,7 @@ class DataBase:
 			print ("ha ocurrido un error")
 			raise
 
-	def actualizar(self): #cambiar el estado de un registro vendido/disponible
+	def actualiza_estado(self): #cambiar el estado de un registro vendido/disponible
 		nombre, estado = input("nombre: "), input ("cambio a vendido/disponible: ")
 
 		sql = "UPDATE tabla_cartas set ESTADO = '{}' WHERE NOMBRE = '{}'".format(estado, nombre)

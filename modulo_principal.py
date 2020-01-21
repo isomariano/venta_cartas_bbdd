@@ -18,13 +18,11 @@ def main():
 	if accion == "ingreso":
 		mi_db.ingreso_cartas()
 		mi_db.commit()
-	if accion == "actualizar":
-		mi_db.actualizar()
+	elif accion == "actualizar":
+		mi_db.actualiza_estado()
 		mi_db.commit()
-	elif accion == "especifica":
-		mi_db.select_carta()
 	else:
-		mi_db.select_cartas(accion)
+		mi_db.consulta_cartas(accion)
 	mi_db.close()
 
 	recursividad = input ("realizar otra accion? ")
