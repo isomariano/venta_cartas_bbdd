@@ -7,8 +7,8 @@ def suma_registro(): #calcula los montos  del registro y lo añade a la lista
     print ("ingrese los datos de la siguiente carta")
     print ()
     try:
-        nombre, dolares, estado = input("nombre: "), float(input("valor en dolares: ")), input("estado: ")
-        registro = [nombre.lower(), dolares, dolares*10, dolares*50, dolares*60, estado.lower()] 
+        nombre, dolares, estado, tipo = input("nombre: "), float(input("valor en dolares: ")), input("estado: "), input("tipo: ")
+        registro = [nombre.lower(), dolares, dolares*10, dolares*50, dolares*60, estado.lower(), tipo.lower()] 
         acumulados.append(registro)
     except:
         print ("valores ingresados no admisibles")
