@@ -27,7 +27,7 @@ def main():
 		mi_db.select_cartas(accion)
 	mi_db.close()
 
-	recursividad = input ("desea realizar otra accion? ")
+	recursividad = input ("realizar otra accion? ")
 	print ()
 	if recursividad == "si":
 		main()
