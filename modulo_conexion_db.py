@@ -42,7 +42,9 @@ class DataBase:
 
 			self.cursor.execute(sql2)
 			totales = self.cursor.fetchone()
-			print ("TOTAL U$S: ", totales [0], "TOTAL $: ", totales[3], "TOTAL COMISION $: ", totales [1])
+			print("------------------------------------------------------------------")
+			print ("TOTAL U$S: ", totales [0], "TOTAL $: ", totales[3])
+			print("------------------------------------------------------------------")
 		except:
 			print ("carta no encontrada")
 		
