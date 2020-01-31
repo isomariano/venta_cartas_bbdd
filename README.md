@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Programa personal en Python
 
 Objetivo: administrar stock de cartas
@@ -15,3 +16,6 @@ Esto me permite:
 Me parecio util dividirlo en 3 modulos, se accede mediante modulo_principal.py
 
 mi mail: isoldimariano@gmail.com
+=======
+
+>>>>>>> e54fd12b3ff60bf93d857e3103dd3ee96f0f710a
