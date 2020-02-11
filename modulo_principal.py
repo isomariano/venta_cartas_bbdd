@@ -13,7 +13,7 @@ def main():
 	print ()
 	accion = input ("accion a realizar: ")
 	print ()
-	mi_db = DataBase()
+	mi_db = data_base()
 
 	if accion == "ingreso":
 		mi_db.ingreso_cartas()

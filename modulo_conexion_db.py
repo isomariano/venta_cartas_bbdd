@@ -3,13 +3,13 @@
 import pymysql
 from modulo_genera_registros import *
 
-class DataBase:
+class data_base:
 	def __init__(self):
 		self.connection = pymysql.connect(
 			host = "localhost", 
 			user = "root", 
 			password = "", 
-			db = "mtg ventas"
+			db = "mtg_ventas"
 			)
 		self.cursor = self.connection.cursor()
 
