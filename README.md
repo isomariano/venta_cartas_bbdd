@@ -3,7 +3,7 @@
 
 #### Objetivo: administrar stock de cartas
 
-Este es un programa de uso personal. Lo cree para llevar a cabo de forma organizada, la venta de cartas coleccionables mtg de un amigo.
+Este es un programa de uso personal. Lo cree para llevar a cabo de forma organizada, la venta de cartas coleccionables y practicar la creacion de un CRUD.
 
 A través de Python me conecto a una base de datos MySQL que tengo alojada en un servidor local, donde se almacenan los registros de cada carta. Con información como: nombre, estado (vendida / disponible), valor en peso argentino, valor en dolares, etc.
 
@@ -13,7 +13,7 @@ Esto me permite:
 - Ingresar nuevas cartas
 - Modificar precio y también el estado de las cartas luego de ser vendidas.
 
-Me parecio util dividirlo en 3 modulos, se accede mediante modulo_principal.py
+se accede mediante modulo_principal.py
 
 mi mail: isoldimariano@gmail.com
 
